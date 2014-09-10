@@ -5,7 +5,7 @@ module.exports = function(getUser, options) {
     options = options || {};
     options.header = options.header || 'x-masquerade-as';
 
-    if (typeof options.authorize === 'function' && !options.authorize(req, res, next)) return next();
+    if (typeof options.authorize === 'function' && !options.authorize(req)) return next();
 
     var id = req.get(options.header);
     if (!id) return next();

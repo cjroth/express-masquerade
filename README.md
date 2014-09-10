@@ -12,11 +12,13 @@
 Add it as middleware. The first parameter is a function that gets a user by id:
 
 ```js
+var express = require('express');
+var masquerade = require('express-masquerade');
+
 var app = express();
-app.use(require('express-masquerade')(function(id, done) {
-  User
-    .find(id)
-    .complete(done);
+
+app.use(masquerade(function(id, next) {
+  User.find(id).complete(next);
 }));
 ```
 
@@ -52,7 +54,7 @@ var options = {
 Set a function to authorize whether or not the user has permission to masquerade. Should return true or false.
 ```
 var options = {
-  authorize = function(req, res, next) {
+  authorize: function(req) {
     return req.user.role === 'admin';
   }
 };

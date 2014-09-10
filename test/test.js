@@ -39,7 +39,7 @@ describe('masquerade()', function() {
   });
 
   it('should ignore x-masquerade-as header if optional authorization function returns false', function(done) {
-    var authorize = function(req, res, next) {
+    var authorize = function(req) {
       return req.user.role === 'admin';
     };
     var app = createServer({ authorize: authorize });
